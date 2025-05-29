@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import './Dashboard.css';
 
+const API = process.env.REACT_APP_API_BASE_URL;
+
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +31,7 @@ const Dashboard = () => {
 
   const fetchFiles = async () => {
     try {
-      const res = await fetch('/api/files/search', {
+      const res = await fetch(`${API}/api/files/search`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       const data = await res.json();
@@ -61,8 +63,8 @@ const Dashboard = () => {
 
     setFilteredFiles(filtered);
   }, [files, search, filters]);
-   useEffect(() => {
-    // Redirect if token is missing (user logged out)
+
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login', { replace: true });
@@ -92,7 +94,7 @@ const Dashboard = () => {
 
     const timer = setTimeout(async () => {
       try {
-        await fetch(`/api/upload/${file._id}`, {
+        await fetch(`${API}/api/upload/${file._id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
@@ -108,7 +110,7 @@ const Dashboard = () => {
 
   const handleView = async (file) => {
     try {
-      await fetch(`/api/upload/view/${file._id}`, { method: 'POST' });
+      await fetch(`${API}/api/upload/view/${file._id}`, { method: 'POST' });
       const updatedFile = { ...file, views: file.views + 1 };
       setSelectedFile(updatedFile);
       setFiles((prev) => prev.map((f) => (f._id === file._id ? updatedFile : f)));

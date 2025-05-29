@@ -1,40 +1,41 @@
 import React, { useState } from 'react';
 import './UploadModal.css';
 
+const API = process.env.REACT_APP_API_BASE_URL; // ✅ Add this line
+
 const UploadModal = ({ onClose, onUploadSuccess }) => {
   const [file, setFile] = useState(null);
   const [tags, setTags] = useState('');
 
- const handleUpload = async () => {
-  if (!file) return alert("Please select a file");
+  const handleUpload = async () => {
+    if (!file) return alert("Please select a file");
 
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('tags', tags);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('tags', tags);
 
-  try {
-    const res = await fetch('/api/upload/upload', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: formData,
-    });
+    try {
+      const res = await fetch(`${API}/api/upload/upload`, { // ✅ Use API here
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: formData,
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      onUploadSuccess();
-      onClose();
-    } else {
-      console.error('Upload failed:', data);
-      alert(data.message || "Upload failed");
+      const data = await res.json();
+      if (res.ok) {
+        onUploadSuccess();
+        onClose();
+      } else {
+        console.error('Upload failed:', data);
+        alert(data.message || "Upload failed");
+      }
+    } catch (err) {
+      console.error('Error uploading:', err);
+      alert("Upload failed: " + err.message);
     }
-  } catch (err) {
-    console.error('Error uploading:', err);
-    alert("Upload failed: " + err.message);
-  }
-};
-
+  };
 
   return (
     <div className="modal-overlay">

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
+const API = process.env.REACT_APP_API_BASE_URL; // ✅ Define API base URL
+
 const Register = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch(`${API}/api/auth/register`, { // ✅ Use full API URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -32,11 +34,34 @@ const Register = () => {
     <div className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
         <h2 className="auth-title">Create Account</h2>
-        <input name="username" placeholder="Username" onChange={handleChange} required className="auth-input" />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required className="auth-input" />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required className="auth-input" />
+        <input
+          name="username"
+          placeholder="Username"
+          onChange={handleChange}
+          required
+          className="auth-input"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+          className="auth-input"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+          className="auth-input"
+        />
         <button type="submit" className="auth-button">Register</button>
-        <p className="auth-switch">Already have an account? <span onClick={() => navigate('/login')}>Login</span></p>
+        <p className="auth-switch">
+          Already have an account?{' '}
+          <span onClick={() => navigate('/login')}>Login</span>
+        </p>
       </form>
     </div>
   );

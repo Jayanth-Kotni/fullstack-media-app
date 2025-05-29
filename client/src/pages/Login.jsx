@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
+const API = process.env.REACT_APP_API_BASE_URL; // ✅ Define API base URL
+console.log("API Base URL:", API);
+
+
 const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -12,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API}/api/auth/login`, { // ✅ Use full API URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -35,10 +39,27 @@ const Login = () => {
     <div className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
         <h2 className="auth-title">Welcome Back</h2>
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required className="auth-input" />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required className="auth-input" />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+          className="auth-input"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+          className="auth-input"
+        />
         <button type="submit" className="auth-button">Login</button>
-        <p className="auth-switch">Don't have an account? <span onClick={() => navigate('/register')}>Register</span></p>
+        <p className="auth-switch">
+          Don't have an account?{' '}
+          <span onClick={() => navigate('/register')}>Register</span>
+        </p>
       </form>
     </div>
   );
