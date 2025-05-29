@@ -1,0 +1,49 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #101827;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upload-button {
+  background-color: #2563eb;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.upload-button:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.05);
+}
+.logout-button {
+  background-color: #ef4444;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.3s ease;
+  font-weight: 500;
+}
+.logout-button:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
