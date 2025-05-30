@@ -129,7 +129,7 @@ After starting the backend server, visit:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/media-vault.git
+git clone https://github.com/Jayanth-Kotni/fullstack-media-app.git
 cd media-vault
 ```
 
