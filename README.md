@@ -130,7 +130,7 @@ After starting the backend server, visit:
 
 ```bash
 git clone https://github.com/Jayanth-Kotni/fullstack-media-app.git
-cd media-vault
+cd fullstack-media-app
 ```
 
 ### 2. Backend Setup
